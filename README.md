@@ -12,23 +12,21 @@ go get github.com/judah-caruso/unsafex
 
 ## Unsafex
 
-The root package `unsafex` contains general-purpose utilites:
+The root package `unsafex` contains general-purpose utilites for:
 
-```go
-import "github.com/judah-caruso/unsafex"
-
-func main() {
-   // Memory size of types
-   uint8Size := unsafex.SizeOf[uint8]()
-
-   // Assertions (can be disabled with the UNSAFEX_DISABLE_ASSERT build tag)
-   unsafex.Assert(uint8Size == 1, "uint8 actually had a size of %d", uint8Size)
-}
-```
+- Retreiving the memory size using a type rather than a zero-value.
+- Retreiving the memory alignment using a type rather than a zero-value.
+- Retreiving the address of any value.
+- Converting `byte`<->`string` without an allocation.
+- Converting `int`<->`bool` without a branch.
 
 ## Rawptr
 
 The `rawptr` makes working with unsafe pointers a little bit safer and a little bit easier.
+
+- Casting to/from different pointer types.
+- Typed memory addresses (prevents invalid alignment and makes casting explicit)
+- Aligning addresses (forward/backward) based on their underlying type's requirement.
 
 See `rawptr/rawptr_test.go` for usage examples.
 
