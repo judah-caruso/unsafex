@@ -51,7 +51,7 @@ func (p T[Underlying]) Size() uintptr {
 	return unsafex.SizeOf[Underlying]()
 }
 
-// Size returns the required alignment in bytes of the type associated with this raw pointer.
+// Alignment returns the required alignment in bytes of the type associated with this raw pointer.
 func (p T[Underlying]) Alignment() uintptr {
 	return unsafex.AlignOf[Underlying]()
 }
