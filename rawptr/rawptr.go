@@ -6,11 +6,6 @@ import (
 	"github.com/judah-caruso/unsafex"
 )
 
-// T represents an arbitrary address in memory with an associated type.
-//
-// Note: T follows the same rules and patterns unsafe.Pointer.
-type T[Underlying any] uintptr
-
 // From converts a pointer to a raw pointer.
 func From[Underlying any](value *Underlying) T[Underlying] {
 	return T[Underlying](unsafe.Pointer(value))
@@ -19,11 +14,6 @@ func From[Underlying any](value *Underlying) T[Underlying] {
 // To converts a raw pointer into a pointer of the given type.
 func To[To, From any](p T[From]) *To {
 	return (*To)(unsafe.Pointer(p))
-}
-
-// Cast converts a raw pointer of one type to another.
-func Cast[To, From any](p T[From]) T[To] {
-	return T[To](uintptr(p))
 }
 
 // FromSafe converts a non-nil pointer to a raw pointer.
@@ -47,6 +37,16 @@ func ToSafe[To, From any](p T[From]) (*To, bool) {
 	}
 
 	return ptr, true
+}
+
+// T represents an arbitrary address in memory with an associated type.
+//
+// Note: T follows the same rules and patterns unsafe.Pointer.
+type T[Underlying any] uintptr
+
+// Cast converts a raw pointer of one type to another.
+func Cast[To, From any](p T[From]) T[To] {
+	return T[To](uintptr(p))
 }
 
 // Size returns the size in bytes of the type associated with this raw pointer.
