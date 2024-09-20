@@ -14,11 +14,11 @@ go get github.com/judah-caruso/unsafex
 
 The root package `unsafex` contains general-purpose utilites for:
 
-- Retreiving the memory size using a type rather than a zero-value.
-- Retreiving the memory alignment using a type rather than a zero-value.
+- Retreiving memory size using a type rather than a zero-value.
+- Retreiving memory alignment using a type rather than a zero-value.
 - Retreiving the address of any value.
 - Converting `byte`<->`string` without an allocation.
-- Converting `int`<->`bool` without a branch.
+- Converting `int`<->`bool` without branching.
 
 ## Rawptr
 
