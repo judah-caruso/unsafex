@@ -2,6 +2,8 @@
 
 An **unsafe** utility package for [Go](https://go.dev).
 
+[Documentation](https://pkg.go.dev/github.com/judah-caruso/unsafex)
+
 ## Installation
 
 ```
