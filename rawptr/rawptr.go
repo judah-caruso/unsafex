@@ -7,6 +7,7 @@ import (
 )
 
 // T represents an arbitrary address in memory with an associated type.
+//
 // Note: T follows the same rules and patterns unsafe.Pointer.
 type T[Underlying any] uintptr
 
@@ -26,7 +27,8 @@ func Cast[To, From any](p T[From]) T[To] {
 }
 
 // FromSafe converts a non-nil pointer to a raw pointer.
-// Returns the raw pointer and a boolean indicating if the pointer is valid.
+//
+// Returns the raw pointer and a boolean indicating if the pointer was nil.
 func FromSafe[Underlying any](value *Underlying) (T[Underlying], bool) {
 	if value == nil {
 		return 0, false
@@ -36,6 +38,7 @@ func FromSafe[Underlying any](value *Underlying) (T[Underlying], bool) {
 }
 
 // To converts a raw pointer into a pointer of the given type.
+//
 // Returns the pointer and a boolean indicating if the raw pointer was nil.
 func ToSafe[To, From any](p T[From]) (*To, bool) {
 	ptr := (*To)(unsafe.Pointer(p))
@@ -62,6 +65,7 @@ func (p T[Underlying]) IsAligned() bool {
 }
 
 // AlignForward aligns a raw pointer to the next aligned address following the alignment rules of its associated type.
+//
 // Note: AlignForward does nothing if the address is already aligned.
 func (p *T[Underlying]) AlignForward() {
 	align := p.Alignment()
@@ -69,6 +73,7 @@ func (p *T[Underlying]) AlignForward() {
 }
 
 // AlignBackward aligns a raw pointer to the previous aligned address following the alignment rules of its associated type.
+//
 // Note: AlignBackward does nothing if the address is already aligned.
 func (p *T[Underlying]) AlignBackward() {
 	*(*uintptr)(p) = *(*uintptr)(p) & ^(p.Alignment() - 1)
@@ -86,13 +91,15 @@ func (p T[Underlying]) Deref() Underlying {
 }
 
 // Add modifies a raw pointer by incrementing its address by the given amount.
-// Note: Add *does not* align the new address.
+//
+// Note: Add does not align the new address. Use AlignForward or AlignBackward.
 func (p *T[Underlying]) Add(amt uintptr) {
 	*(*uintptr)(p) += amt
 }
 
 // Sub modifies a raw pointer by decrementing its address by the given amount.
-// Note: Sub *does not* align the new address.
+//
+// Note: Sub does not align the new address. Use AlignForward or AlignBackward.
 func (p *T[Underlying]) Sub(amt uintptr) {
 	*(*uintptr)(p) -= amt
 }

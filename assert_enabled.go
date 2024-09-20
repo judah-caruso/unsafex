@@ -15,7 +15,7 @@ func Assert(cond bool, message ...any) {
 	if len(message) >= 1 {
 		format, ok := message[0].(string)
 		if ok {
-			msg = fmt.Sprint(format, message[1:])
+			msg = fmt.Sprintf(format, message[1:]...)
 		}
 	}
 
