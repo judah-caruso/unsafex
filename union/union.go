@@ -27,7 +27,7 @@ type anystruct any
 
 // Of represents a union of different types.
 //
-// Since members are not accessed by type instead of name,
+// Since members are accessed by type instead of name,
 // T is expected to be a struct of types like so:
 //
 //	type Value = union.Of[struct {
